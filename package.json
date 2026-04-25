@@ -1,0 +1,20 @@
+{
+  "name": "whatsapp-bridge",
+  "version": "1.0.0",
+  "description": "Self-hosted WhatsApp Web bridge for clinic broadcasts (multi-tenant)",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "whatsapp-web.js": "^1.27.0",
+    "qrcode": "^1.5.4",
+    "puppeteer": "^23.0.0"
+  }
+}
