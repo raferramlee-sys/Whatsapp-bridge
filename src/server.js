@@ -84,6 +84,7 @@ function getOrCreate(clinicId) {
         '--disable-dev-shm-usage',
         '--disable-gpu',
       ],
+      protocolTimeout: 120000, // 120s instead of default 30s
     },
   });
 
