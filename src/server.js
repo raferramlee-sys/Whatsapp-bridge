@@ -8,7 +8,7 @@ const { Client, LocalAuth } = pkg;
 const PORT = process.env.PORT || 8080;
 const SECRET = process.env.WA_BRIDGE_SECRET;
 const WEBHOOK_URL = process.env.SUPABASE_WEBHOOK_URL;
-const SESSION_DIR = process.env.WA_SESSION_DIR || './sessions';
+const SESSION_DIR = process.env.WA_SESSION_DIR || '/data/.wwebjs_auth';
 
 if (!SECRET) {
   console.error('WA_BRIDGE_SECRET is required');
@@ -75,7 +75,7 @@ function getOrCreate(clinicId) {
   if (entry) return entry;
 
   const client = new Client({
-    authStrategy: new LocalAuth({ clientId: clinicId, dataPath: SESSION_DIR }),
+    authStrategy: new LocalAuth({ clientId: clinicId, dataPath: '/data/.wwebjs_auth' }),
     puppeteer: {
       headless: true,
       args: [
@@ -83,8 +83,10 @@ function getOrCreate(clinicId) {
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-gpu',
+        '--no-first-run',
+        '--single-process',
       ],
-      protocolTimeout: 120000, // 120s instead of default 30s
+      protocolTimeout: 120000, // 120s — fixes "Runtime.callFunctionOn timed out"
     },
   });
 
